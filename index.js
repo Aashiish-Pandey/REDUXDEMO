@@ -1,10 +1,15 @@
 const redux = require('redux')
 const createStore = redux.createStore
+const combineReducer = redux.combineReducers
+
+
 const BUY_CAKE = "BUY_CAKE";
 const BUY_ICECREAM = "BUY_ICECREAM"
 
-const intialState = {
-  numberOfCakes: 10,
+const intialCakeState = {
+  numberOfCakes: 10
+};
+const intialIceCreamState = {
   noOfIcecream:20
 };
 
@@ -23,7 +28,7 @@ function buyIceCream() {
       type: BUY_ICECREAM
     };
   }
-const reducer = (state = intialState, action) => {
+const cakeReducer = (state = intialCakeState, action) => {
   switch (action.type) {
     case BUY_CAKE:
       return {
@@ -32,7 +37,14 @@ const reducer = (state = intialState, action) => {
         numberOfCakes: state.numberOfCakes - 1,
       };
 
-      case BUY_ICECREAM:
+    default:
+      return state
+  }
+};
+const iceCreamReducer = (state = intialIceCreamState, action) => {
+  
+    switch (action.type) {
+    case BUY_ICECREAM:
       return {
         ...state,
 
@@ -43,8 +55,13 @@ const reducer = (state = intialState, action) => {
       return state
   }
 };
+const rootReducer = combineReducer({     // creating Combine reducer
+    cake:cakeReducer,
+    iceCream:iceCreamReducer
 
-const store = createStore(reducer); // creation of redux store ,store holding the state of the application
+
+})
+const store = createStore(rootReducer); // creation of redux store and adding combine reducer to store.store holding the state of the application
 console.log('ititial state  ',store.getState()) // store allow access to state via getState() method 
 const unsubscribe = store.subscribe(()=>console.log('Updated state', store.getState()))
 store.dispatch(buyCake())
