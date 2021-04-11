@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/Aashiish-Pandey/REDUXDEMO#readme",
   "dependencies": {
-    "redux": "^4.0.5"
+    "axios": "^0.21.1",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0"
   }
 }
